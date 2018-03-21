@@ -16,43 +16,44 @@ public class UIController : MonoBehaviour
 	public Text MessageDisplay;
 
 	// Use this for initialization
-	void Start()
+	void Start ()
 	{
-		// Subscribe our 'SendMessage' method to m_ButtonSendMessage onClick events
-		// Therefore: everytime we click on the button, 'SendMessage' will be called.
-		ButtonSendMessage.onClick.AddListener(SendMessageUpdateRequest);
+		// Subscribe our 'SendMessageUpdateRequest' method to ButtonSendMessage onClick events
+		// Therefore: everytime we click on the button, 'SendMessageUpdateRequest' will be called
+		ButtonSendMessage.onClick.AddListener (SendMessageUpdateRequest);
 
-		// Also, subscribe 
+		// Also, subscribe our 'UpdateMessage' method to listen for OnMessageUpdateRequest calls
 		EventController.OnMessageUpdateRequest += UpdateMessage;
 	}
 
-	void SendMessageUpdateRequest()
+	void SendMessageUpdateRequest ()
 	{
 		// Store the input field's text into a string
 		string message = InputField.text;
 
-		EventController.Event_OnMessageUpdateRequest(message);
+		// Call the 'Event_OnMessageUpdateRequest' static method from the EventController class
+		EventController.Event_OnMessageUpdateRequest (message);
 	}
 
-	void UpdateMessage(string _message)
+	void UpdateMessage (string _message)
 	{
-		// Print it (Debugging purposes)
-		Debug.LogFormat("-- UIController // Updating message: {0}", _message);
+		// Print the message
+		Debug.LogFormat ("-- UIController // Updating message: {0}", _message);
 
-		// Update our message display text with the contents of the message variable
+		// Replace the current message with the contents of the _message string
 		MessageDisplay.text = _message;
 
 		// Reset the text of our input field
 		InputField.text = "";
 	}
-	
+
 	/// <summary>
 	/// This function is called when the behaviour becomes disabled or inactive.
 	/// </summary>
-	void OnDisable()
+	void OnDisable ()
 	{
 		// Unsubscribe from our methods
-		ButtonSendMessage.onClick.RemoveListener(SendMessageUpdateRequest);
+		ButtonSendMessage.onClick.RemoveListener (SendMessageUpdateRequest);
 
 		EventController.OnMessageUpdateRequest -= UpdateMessage;
 	}

@@ -7,7 +7,7 @@ public class EventController : MonoBehaviour
 	// The delegate is our signature-- Define your parameters between the parentheses
 	public delegate void OnMessageUpdateRequestDelegate(string _message);
 	
-	// This will be the event we're subscribing towards
+	// This will be the delegate we're subscribing towards
 	public static OnMessageUpdateRequestDelegate OnMessageUpdateRequest;
 
 	public static void Event_OnMessageUpdateRequest(string _message)
